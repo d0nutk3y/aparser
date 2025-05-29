@@ -8,7 +8,7 @@ But with human-readable format you can determine date&time of interest to view i
 + `atop` version v2.8.1 (tested)
 
 ### Features
-+ Calculates stats () with explicit formulas
++ Calculates stats with explicit formulas
 + Exports data to JSON or CSV
 + Flat output file structure
 + Extensible for custom use cases (see Modification section)
@@ -50,13 +50,13 @@ options:
 
 #### Example
 ```
-aparser_cli.py -t ./atop_logs/web_stress -o ./test_results/web_stress.CSV -of CSV
+aparser_cli.py -t ./atop_logs/web_stress -o ./test_results/web_stress.csv -of csv
 ```
 
 
 ## Output examples
-You can manually run ``aparser_cli_tests.sh`` for CLI testing.
-Requires atop logs: ./test_logs/web_stress
+You can manually run ``aparser_cli_tests.sh`` for CLI testing.\
+Requires atop logs: ./test_logs/web_stress\
 Expected output: CSV/JSON files in ./test_results/
 
 ### CSV (part)
@@ -70,19 +70,19 @@ Expected output: CSV/JSON files in ./test_results/
 ```
 
 ## Runtime explanation
-Client code uses facade object that produces stats generator
+Client code uses facade object that produces stats generator.\
 The stats generator chains iterators to transform raw `atop` data into list of metrics objects.
 
 ### Sequence of data transformations
 1. Common parser contains special parsers and converting single raw string at time.
-Each special parser handles concrete raw data (cpu, mem, network, etc.)
+Each special parser handles concrete raw data (cpu, mem, network, etc.).
 2. Records iterator uses `atop` binary to get raw records from `atop` file(s).
 Records iterator also uses (`1`) to handle raw records.
 3. Time related records iterator processes records from (`2`) and yields timestamps with associated data.
 4. Stats selector creates stats generator. 
-Stats generator uses (`3`) to create Stats objects
+Stats generator uses (`3`) to create Stats objects.
 5. Each Stats object contains date&time and corresponding stats.
-6. List of stats objects can be converted to CSV or JSON
+6. List of stats objects can be converted to CSV or JSON.
 
 
 ## Modification
